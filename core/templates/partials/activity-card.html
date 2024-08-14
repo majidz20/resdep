@@ -1,0 +1,33 @@
+{% load jalali_tags %}
+
+<div class="flex w-full px-2 py-2 activity-row">
+    <div class="w-1/12 items-center flex flex-nowrap justify-center">
+        {{forloop.counter}}
+    </div>
+    <div class="w-3/12 items-center flex flex-nowrap justify-center">{{activity.name}}</div>
+    <div class="w-3/12 items-center flex flex-nowrap justify-center">{{activity.task.name}}</div>
+    <div class="w-1/12 items-center flex flex-nowrap justify-center">{{activity.updated_at|to_jalali:'%Y/%m/%d'}}</div>
+    <div class="w-4/12 items-center flex flex-nowrap justify-center">
+        <form action="{% url 'confirm_activity' activity.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="next_activity" hidden id="id_next_activity_{{activity.id}}" >
+            <input type="text" name="activity_id" hidden value="{{activity.activity_id}}" id="id_activity_id_{{activity.id}}">
+            <input type="text" name="bpmn" id="id_bpmn_confirm_{{activity.id}}" hidden value="{{activity.task.process.bpmn}}">
+
+            <input type="text" name="group" id="id_group_{{activity.id}}" hidden>
+            <input type="text" name="next_activity_type" id="id_next_activity_type_{{activity.id}}" hidden>
+            <input type="text" name="duration" id="id_duration_{{activity.id}}" hidden>
+            <input type="text" name="percent" id="id_percent_{{activity.id}}" hidden>
+            <input type="text" name="activity_name" id="id_activity_name_{{activity.id}}" hidden>
+
+
+
+            <button class="px-5 py-2 rounded-md bg-green-400 confirm" data-activity-id="{{activity.id}}" data-tasks-done="{{activity.get_curent_task_dones}}" type="submit">تایید</button>
+        </form>
+
+        <button class="px-5 py-2 rounded-md bg-green-200 modal-toggle" data-modal="#activityReferModal" data-activity-id="{{activity.id}}" data-action-url="{% url 'refer_activity' activity.id %}">ارجاع</button>
+    </div>  
+</div>
+
+
+

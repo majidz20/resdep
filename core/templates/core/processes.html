@@ -1,0 +1,23 @@
+{% extends "index.html" %} {% block content %}
+<div class="flex flex-col w-full">
+    <div class="flex flex-row-reverse w-full">
+        <div class="flex w-3/12">
+            <a href="{% url 'add_process' %}" class="w-full bg-cyan-400 px-3 py-2 text-white rounded-md">
+                <i class="bi bi-plus-square"></i>
+                اضافه کردن فرآیند
+            </a>
+        </div>
+
+    </div>
+    <div class="flex p-3 w-full h-full flex-wrap justify-center items-center">
+        {% for process in processes %}
+        {% include 'partials/process-card.html' %}
+        {% empty %}
+        <h1 class="text-xlg rounded-lg bg-white px-3 py-6 text-center">تاکنون فرآیندی ثبت نشده است</h1>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

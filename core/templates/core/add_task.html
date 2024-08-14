@@ -1,0 +1,26 @@
+{% extends "index.html" %} {% block content %}
+
+<form method="post" class="rounded-md bg-white p-3">
+    {% csrf_token %} {% for field in form.visible_fields %}
+    <div class="flex w-full items-center p-2">
+        <div class="w-1/6">{{field.label}}</div>
+        <div class="flex-1">{{field}}</div>
+    </div>
+    {% endfor %}
+    {% for field in form.hidden_fields %}
+    {{field}}
+    {% endfor %}
+    <div class="my-2">
+        <button class="px-5 py-2 rounded-md bg-cyan-400" type="submit">
+            ثبت
+        </button>
+    </div>
+</form>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

@@ -1,0 +1,16 @@
+<!-- Responsive Navbar -->
+<nav class="bg-white py-2 hover:shadow-md hover:shadow-slate-300 hover:backdrop-blur-md">
+  <ul class="flex flex-row px-3">
+    <li class="mx-2"><a href="{% url 'home' %}">خانه</a></li>
+    <li class="mx-2"><a href="{% url 'tasks' %}">کار ها</a></li>
+    <li class="mx-2"><a href="{% url 'processes' %}">فرآیند ها</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="mr-auto">
+      <form id="frm_logout" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <a href="#" onclick="$('#frm_logout').submit();" class="nav-link">خروج</a>
+      </form>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

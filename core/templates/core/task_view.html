@@ -1,0 +1,56 @@
+{% extends "index.html" %} {% block content %}
+{% load jalali_tags %}
+
+<div class="bg-white w-full p-3 rounded-sm">
+    <h1 class="text-2xl text-center">{{task.name}}</h1>
+<div id="graph" class="my-2">
+    <div class="diagram-div pt-3 px-1">
+        <div class="hidden bpmn-view" data-show-inputs="true" data-done = "[{% for act in task.get_done_activities %} '{{act.activity_id}}', {% endfor %}]">{{task.process.bpmn}}</div>
+    </div>
+</div>
+
+<div class="flex flex-col w-full">
+    <div class="flex flex-row">
+        <div class="w-1/12">ردیف</div>
+        <div class="w-4/12">نام مرحله</div>
+        <div class="w-2/12">اقدام کننده</div>
+        <div class="w-2/12">تاریخ شروع</div>
+        <div class="w-2/12">تاریخ پایان</div>
+        <div class="w-1/12">مدت زمان سپری شده</div>
+    </div>
+    {% for activity in activities %}
+    <div class="flex flex-row bg-green-200 hover:bg-green-400">
+        <div class="w-1/12">{{forloop.counter}}</div>
+        <div class="w-4/12">{{activity.name}}</div>
+        <div class="w-2/12">{{activity.organ}}</div>
+        <div class="w-2/12">{{activity.created_at|to_jalali:'%Y/%m/%d'}}</div>
+        <div class="w-2/12">{{activity.updated_at|to_jalali:'%Y/%m/%d'}}</div>
+        <div class="w-1/12">{{activity.get_duration}}</div>
+    </div>
+    {% endfor %}
+
+    {% for activity in currnet_activities %}
+    <div class="flex flex-row bg-yellow-200 hover:bg-yellow-400">
+        <div class="w-1/12">{{forloop.counter}}</div>
+        <div class="w-4/12">{{activity.name}}</div>
+        <div class="w-2/12">{{activity.organ}}</div>
+        <div class="w-2/12">{{activity.created_at|to_jalali:'%Y/%m/%d'}}</div>
+        <div class="w-2/12">-</div>
+        <div class="w-1/12">{{activity.get_duration}}</div>
+    </div>
+    {% endfor %}
+
+
+    
+
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

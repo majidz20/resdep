@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static 'core/css/Vazirmatn-font-face.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/Yekan-font-face.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/bootstrap-icons.min.css' %}">
+
+  <!-- bpmn packages -->
+  <link rel="stylesheet" href="{% static 'core/css/assets/bpmn-js.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/assets/diagram-js.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/assets/bpmn-font/css/bpmn.css' %}" />
+
+
+  <link rel="stylesheet" href="{% static 'core/css/output.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" />
+</head>
+
+<body dir="rtl" class="bg-slate-100" lang="fa">
+  {% include 'navbar.html' %}
+  <div class="m-0 p-4">
+    <div class="flex m-0 p-0">
+      {% if messages %}
+      {% for message in messages %}
+      <div
+        class="border-l-4 p-4 {% if message.tags == 'error' %} bg-red-200 border-red-600 text-red-600 {% else %} bg-green-200 border-green-600 text-green-600 {% endif %}"
+        role="alert">
+        {{message}}
+        <button type="button" class="" onclick="this.parentNode.remove()" aria-label="Close">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    
+
+    {% block content %} {% endblock content %}
+
+  </div>
+  <script src="{% static 'core/js/jquery.js' %}"></script>
+  {% if modeling %}
+  <script src="{% static 'core/js/bpmn-modeler.production.min.js' %}"></script>
+  {% endif %}
+  {% if viewing %}
+  <script src="{% static 'core/js/bpmn-viewer.production.min.js' %}"></script>
+  <script src="{% static 'core/js/highcharts.js' %}" ></script>
+  {% endif %}
+  <script src="{% static 'core/js/main.js' %}"></script>
+  {% block js %}
+  {% endblock js %}
+</body>
+
+</html>

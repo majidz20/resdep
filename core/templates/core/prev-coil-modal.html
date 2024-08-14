@@ -1,0 +1,28 @@
+{% for coil in coils %} 
+{% include 'partials/coil-card.html' with coil=coil %}
+{% endfor %}
+
+<!-- Activity modal -->
+<div class="modal fade" id="activityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 w-100" id="activityModalLabel">فعالیت</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="activityForm" method="post" class="row m-0" action="{% url 'add_activity' %}">
+      <div class="modal-body row m-0">
+        {% csrf_token %} {% for field in activity_form %}
+        <div class="{% if field.field.widget.input_type %}col-3{% else %}col-12{% endif %} p-1 {% if field.name == 'waiting_type' %} d-none {% endif %}" id="{{field.name}}-col">
+          {{field.label}}
+          {{field}}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" >ثبت</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

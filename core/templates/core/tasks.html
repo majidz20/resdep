@@ -1,0 +1,23 @@
+{% extends "index.html" %} {% block content %}
+<div class="flex flex-row-reverse w-full">
+    <div class="flex w-3/12">
+        <a href="{% url 'add_task' %}" class="w-full bg-cyan-400 px-3 py-2 text-white rounded-md">
+            <i class="bi bi-plus-square"></i>
+            اضافه کردن کار
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="flex flex-row p-3 w-full h-full flex-wrap  items-stretch">
+        {% for task in tasks %}
+        {% include 'partials/task-card.html' %}
+        {% empty %}
+        <h1 class="text-xlg rounded-lg bg-white px-3 py-6 text-center">تاکنون کاری ثبت نشده است</h1>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

@@ -1,0 +1,11 @@
+body {
+  font-family: Yekan, sans-serif;
+}
+.highlight-green:not(.djs-connection) .djs-visual > :nth-child(1) {
+  fill: rgb(143, 252, 143) !important; /* color elements as green */
+  stroke: green !important; /* color elements as green */ 
+}
+.highlight-red:not(.djs-connection) .djs-visual > :nth-child(1) {
+  fill: rgb(255, 133, 133) !important; /* color elements as green */
+  stroke: red !important; /* color elements as green */
+}

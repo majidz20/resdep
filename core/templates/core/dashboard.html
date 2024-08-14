@@ -1,0 +1,266 @@
+{% extends "index.html" %} {% block content %}
+
+<div class="row m-0 p-3">
+    <form class="row m-0 p-0" action="" id="dashboard_form">
+        <div class="col-2">
+            <p>پیمانکار</p>
+            <select name="contractor">
+                <option value="" {% if not company_name %}selected {% endif %}>همه</option>
+                {% for company in company_names %}
+                <option value="{{company.name}}" {% if company_name == company.name %}selected {% endif %}>
+                    {{company.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-2">
+            <p>میدان</p>
+            <select name="field">
+                <option value="" {% if not field_name %}selected {% endif %}>همه</option>
+                {% for field in fields %}
+                <option value="{{field.name}}" {% if field_name == field.name %}selected {% endif %}>
+                    {{field.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-2">
+            <p>دستگاه ها</p>
+            <select name="coil">
+                <option value="" {% if not coil_number %}selected {% endif %}>همه</option>
+                {% for coil in coils %}
+                <option value="{{coil.number}}" {% if coil_number == coil.number %}selected {% endif %}>
+                    {{coil.number}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-2">
+            <p>شرکت های بهره برداری</p>
+            <select name="pcompany">
+                <option value="" {% if not pcompany_name %}selected {% endif %}>همه</option>
+                {% for company in pcompanies %}
+                <option value="{{company.name}}" {% if pcompany_name == company.name %}selected {% endif %}>
+                    {{company.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+    </form>
+</div>
+<div class="row m-0 p-3">
+    <div id="my_div"></div>
+    <div id="months"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    let years = {{ years| safe}}
+    let jobs = {{ jobs }}
+    let counts = {{ counts }}
+    let avgs = {{ avgs }}
+    let years_month = {{ years_month| safe}}
+    let counts_m = {{ counts_m }}
+    let jobs_m = {{ jobs_m }}
+</script>
+<script>
+    Highcharts.chart('my_div', {
+        title: {
+            text: 'نمودار عملکرد در هر سال',
+            style: {
+                fontFamily: "Vazirmatn"
+            }
+        },
+        legend: {
+            align: 'center',
+            fontFamily: 'Vazirmatn',
+            itemStyle: {
+                fontFamily: 'Vazirmatn',
+            }
+        },
+        xAxis: {
+            categories: years,
+            title: {
+                text: 'سال',
+                style: {
+                    fontFamily: "Vazirmatn"
+                },
+                fontFamily: 'Vazirmatn',
+            }
+        },
+        yAxis: [
+            { // Primary yAxis
+                gridLineWidth: 0,
+                tickInterval:1,
+                
+                labels: {
+                    format: '{value}', style: {
+                        fontFamily: "Vazirmatn"
+                    },
+                    step:2,
+                },
+                title: {
+                    text: 'تعداد دستگاه', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                
+                opposite: true,
+
+            },
+            { // Secondary yAxis
+                // gridLineWidth: 0,
+                title: {
+                    text: 'تعداد عملیات', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                labels: {
+                    format: '{value}', style: {
+                        fontFamily: "Vazirmatn"
+                    },
+
+                },
+                tickInterval:1,
+            },
+            { // Tertiary yAxis
+                gridLineWidth: 0,
+                tickInterval:1,
+                title: {
+                    text: 'میانگین عملکرد هر دستگاه', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                labels: {
+                    format: '{value}', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                }
+
+            },
+        ],
+        tooltip: {
+            split: true,
+            shared: true,
+            style: {
+                fontFamily: "Vazirmatn"
+            }
+        },
+        series: [
+            {
+                type: 'line',
+                name: 'تعداد دستگاه',
+                data: counts,
+                yAxis: 0,
+            },
+            {
+                type: 'column',
+                name: 'تعداد عملیات',
+                data: jobs,
+                yAxis: 1,
+            },
+            {
+                type: 'line',
+                name: 'میانگین زمان انجام عملیات هر دستگاه',
+                data: avgs,
+                yAxis: 2,
+            }
+        ]
+    });
+
+
+
+    Highcharts.chart('months', {
+        title: {
+            text: 'نمودار عملکرد در هر ماه',
+            style: {
+                fontFamily: "Vazirmatn"
+            }
+        },
+        legend: {
+            align: 'center',
+            fontFamily: 'Vazirmatn',
+            itemStyle: {
+                fontFamily: 'Vazirmatn',
+            }
+        },
+        xAxis: {
+            categories: years_month,
+            title: {
+                text: 'سال',
+                style: {
+                    fontFamily: "Vazirmatn"
+                },
+                fontFamily: 'Vazirmatn',
+            }
+        },
+        yAxis: [
+            { // Secondary yAxis
+                tickInterval:1,
+                gridLineWidth: 0,
+                title: {
+                    text: 'تعداد عملیات', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                labels: {
+                    format: '{value}', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                }
+
+            },
+
+            { // Primary yAxis
+                tickInterval:1,
+                ordinal: false,
+                labels: {
+                    format: '{value}', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                title: {
+                    text: 'تعداد دستگاه', style: {
+                        fontFamily: "Vazirmatn"
+                    }
+
+                },
+                opposite: true
+
+            },
+
+
+        ],
+        tooltip: {
+            split: true,
+            shared: true,
+            style: {
+                fontFamily: "Vazirmatn"
+            }
+        },
+        series: [
+
+            {
+                type: 'column',
+                name: 'تعداد عملیات',
+                data: jobs_m,
+                yAxis: 0,
+            }, {
+                type: 'line',
+                name: 'تعداد دستگاه',
+                data: counts_m,
+                yAxis: 1,
+            },
+
+        ]
+    });
+</script>
+{% endblock js %}

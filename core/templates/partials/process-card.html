@@ -1,0 +1,13 @@
+<div class="bg-white rounded-md shadow-md hover:shadow-xl shadow-black w-1/3 ">
+    <div 
+    class="heading p-3 text-lg rounded-t bg-slate-300">
+        <a href="{% url 'edit_process' process.id %}">{{process.name}}</a>
+    </div>
+
+    <div class="diagram-div pt-3 px-1">
+        <div class="hidden bpmn-view">{{process.bpmn}}</div>
+    </div>
+    <div class="content px-3 rounded-b py-2">
+        {{process.description}}
+    </div>
+</div>

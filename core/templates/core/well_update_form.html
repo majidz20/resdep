@@ -1,0 +1,18 @@
+{% extends 'index.html' %} {% block content %}
+<div class="row m-0 p-3">
+  <form method="post" class="row m-0">
+    {% csrf_token %} {% for field in form %}
+    <div class="col-3 m-1">
+      {{field.label}}
+      {{field}}
+    </div>
+    {% endfor %}
+    <div class="row w-100 mt-2">
+      <button class="btn btn-primary col-2 mx-auto" type="submit">
+        ثبت
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

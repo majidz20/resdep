@@ -1,0 +1,6 @@
+node_modules
+db.sqlite3
+**/**/__pycache__
+**/**/migrations
+bpmn-files/**
+/resdep/settings.py
